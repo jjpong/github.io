@@ -1,118 +1,299 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>jipong 的 GitHub 專案總覽</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 40px;
-    background-color: #f4f7f6;
-    color: #333;
-    line-height: 1.6;
-  }
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  h1 {
-    color: #0056b3;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5em;
-  }
-  h2 {
-    color: #007bff;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 5px;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    background-color: #e9f0f6;
-    margin-bottom: 12px;
-    padding: 15px 20px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    transition: background-color 0.3s ease;
-  }
-  li:hover {
-    background-color: #dbe4ee;
-  }
-  a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    font-size: 1.1em;
-    flex-grow: 1; /* Make the link take up available space */
-  }
-  a:hover {
-    text-decoration: underline;
-    color: #0056b3;
-  }
-  .description {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 5px;
-  }
-  footer {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 0.9em;
-    color: #999;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的程式專案作品集</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        /* 搜尋與篩選區塊 */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        #search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 30px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        #search-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            background-color: #e2e8f0;
+            color: var(--text-color);
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn.active, .btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 專案卡片網格 */
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .repo-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .repo-title {
+            font-size: 1.25rem;
+            margin: 0 0 10px 0;
+        }
+
+        .repo-title a {
+            color: #0f172a;
+            text-decoration: none;
+        }
+
+        .repo-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .repo-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .repo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            padding: 40px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>歡迎來到 jipong 的 GitHub 專案頁面</h1>
+    <header>
+        <h1 id="gallery-title">我的程式專案作品集</h1>
+        <p style="color: var(--text-muted);">自動同步自 GitHub 的公開專案庫</p>
+    </header>
 
-  <h2>我的主要專案</h2>
-  <ul id="repo-list">
-    <li>
-      <a href="https://jipong.github.io/LearningAssist/" target="_blank">LearningAssist</a>
-      <div class="description">一個整合學習程式與輔助工具的網站。</div>
-    </li>
-    <li>
-      <a href="https://jipong.github.io/lab/" target="_blank">lab</a>
-      <div class="description">存放各種實驗程式與測試頁面。</div>
-    </li>
-    <li>
-      <a href="https://jipong.github.io/graph/" target="_blank">graph</a>
-      <div class="description">各式科學數據視覺化與統計應用程式。</div>
-    </li>
-    <li>
-      <a href="https://jipong.github.io/Project_image/" target="_blank">Project_image</a>
-      <div class="description">專案相關圖片的展示頁面。</div>
-    </li>
-    <li>
-      <a href="https://jipong.github.io/classtools/" target="_blank">classtools</a>
-      <div class="description">一些用於教學或課堂輔助的工具頁面。</div>
-    </li>
-    </ul>
+    <div class="controls">
+        <input type="text" id="search-input" placeholder="搜尋專案名稱或描述...">
+        <div class="filter-buttons" id="filter-container">
+            <button class="btn active" onclick="filterCategory('all', this)">全部</button>
+            </div>
+    </div>
 
-  <h2>其他連結</h2>
-  <ul>
-    <li>
-      <a href="https://github.com/jipong" target="_blank">我的 GitHub 個人檔案</a>
-    </li>
-    </ul>
-
-  <footer>
-    &copy; 2025 jipong. All rights reserved.
-  </footer>
+    <div class="repo-grid" id="repo-grid">
+        <div class="loading">正在載入專案資料...</div>
+    </div>
 </div>
+
+<script>
+    // ==========================================
+    // 填入你的 GitHub 帳號
+    // ==========================================
+    const GITHUB_USERNAME = '你的_GITHUB_帳號'; 
+
+    let allRepos = [];
+    let currentCategory = 'all';
+
+    // 1. 從 GitHub API 抓取資料
+    async function fetchGitHubRepos() {
+        const grid = document.getElementById('repo-grid');
+        try {
+            // per_page=100 代表一次抓取最多 100 個專案，sort=updated 代表依更新時間排序
+            const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
+            
+            if (!response.ok) throw new Error('無法取得資料，請確認帳號是否正確');
+            
+            const repos = await response.json();
+            
+            // 篩選：只留自己的原生專案（排除 fork 別人的），且排除這個首頁專案本身
+            allRepos = repos.filter(repo => !repo.fork && repo.name.toLowerCase() !== `${GITHUB_USERNAME}.github.io`.toLowerCase());
+            
+            generateFilterButtons();
+            renderRepos(allRepos);
+            
+        } catch (error) {
+            grid.innerHTML = `<div class="loading" style="color: #ef4444;">載入失敗: ${error.message}</div>`;
+        }
+    }
+
+    // 2. 自動提取所有專案的 Topics 來做成「分類按鈕」
+    function generateFilterButtons() {
+        const container = document.getElementById('filter-container');
+        const tagSet = new Set();
+        
+        // 收集所有專案的標籤
+        allRepos.forEach(repo => {
+            if (repo.topics && repo.topics.length > 0) {
+                repo.topics.forEach(tag => tagSet.add(tag));
+            }
+        });
+
+        // 將標籤做成按鈕加入畫面
+        tagSet.forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = 'btn';
+            btn.textContent = tag;
+            btn.onclick = (e) => filterCategory(tag, e.target);
+            container.appendChild(btn);
+        });
+    }
+
+    // 3. 渲染卡片到畫面上
+    function renderRepos(reposToRender) {
+        const grid = document.getElementById('repo-grid');
+        grid.innerHTML = '';
+
+        if (reposToRender.length === 0) {
+            grid.innerHTML = '<div class="loading">找不到符合條件的專案</div>';
+            return;
+        }
+
+        reposToRender.forEach(repo => {
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            
+            // 處理標籤 HTML
+            const tagsHTML = repo.topics && repo.topics.length > 0 
+                ? repo.topics.map(t => `<span class="tag">${t}</span>`).join('') 
+                : '';
+
+            card.innerHTML = `
+                <div>
+                    <h3 class="repo-title">
+                        <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                    </h3>
+                    <p class="repo-desc">${repo.description || '<i>暫無專案描述。可於 GitHub 的 About 欄位新增。</i>'}</p>
+                </div>
+                <div class="repo-tags">${tagsHTML}</div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // 4. 按鈕切換分類功能
+    function filterCategory(category, buttonElement) {
+        currentCategory = category;
+        
+        // 切換按鈕的 active 樣式
+        document.querySelectorAll('.filter-buttons .btn').forEach(btn => btn.classList.remove('active'));
+        buttonElement.classList.add('active');
+
+        applyFilterAndSearch();
+    }
+
+    // 5. 連動處理「分類」與「關鍵字搜尋」
+    function applyFilterAndSearch() {
+        const keyword = document.getElementById('search-input').value.toLowerCase();
+        
+        const filtered = allRepos.filter(repo => {
+            // 檢查分類是否符合
+            const matchesCategory = currentCategory === 'all' || (repo.topics && repo.topics.includes(currentCategory));
+            
+            // 檢查關鍵字是否符合（搜尋專案名稱或描述）
+            const matchesKeyword = repo.name.toLowerCase().includes(keyword) || 
+                                   (repo.description && repo.description.toLowerCase().includes(keyword));
+            
+            return matchesCategory && matchesKeyword;
+        });
+
+        renderRepos(filtered);
+    }
+
+    // 監聽搜尋輸入框
+    document.getElementById('search-input').addEventListener('input', applyFilterAndSearch);
+
+    // 網頁開啟時立刻執行
+    fetchGitHubRepos();
+</script>
 
 </body>
 </html>
